@@ -4,212 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VK Studio AI</title>
-
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#090b12;
-  color:white;
-}
-header{
-  padding:18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid #242738;
-}
-.logo{font-size:24px;font-weight:bold;color:#8b7cff}
-.logo span{color:white}
-button{
-  cursor:pointer;
-  border:0;
-  border-radius:12px;
-  padding:13px 18px;
-  color:white;
-  background:#6b5cff;
-  font-size:15px;
-}
-.container{max-width:850px;margin:auto;padding:20px}
-.hero{text-align:center;padding:35px 10px}
-.hero h1{font-size:34px}
-.hero p{color:#a5a8ba}
-.card{
-  background:#141722;
-  border:1px solid #292e40;
-  padding:20px;
-  border-radius:18px;
-  margin:18px 0;
-}
-.tabs{display:flex;gap:10px;flex-wrap:wrap}
-.tabs button{background:#202436}
-textarea,input{
-  width:100%;
-  background:#0d1018;
-  color:white;
-  border:1px solid #33394c;
-  padding:15px;
-  border-radius:12px;
-  font-size:16px;
-  margin:10px 0;
-}
-textarea{min-height:120px;resize:vertical}
-.result{
-  white-space:pre-wrap;
-  background:#0d1018;
-  padding:15px;
-  border-radius:12px;
-  margin-top:15px;
-  color:#d5d7e6;
-}
-.tag{
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:20px;
-  background:#24213f;
-  color:#b9aaff;
-  margin:4px;
-}
-footer{text-align:center;color:#85899b;padding:30px}
-.hidden{display:none}
+*{box-sizing:border-box}body{margin:0;background:#090d18;color:#f4f6ff;font-family:Arial,sans-serif}
+header{padding:18px 16px;background:#11182a;border-bottom:1px solid #26324b;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
+.logo{font-size:23px;font-weight:800;color:#65d5ff}.logo span{color:#fff}
+main{max-width:900px;margin:auto;padding:18px}.welcome{padding:22px;border-radius:18px;background:linear-gradient(135deg,#182b50,#17203a);margin-bottom:18px}
+h1{font-size:25px;margin:0 0 8px}.muted{color:#aab5ce;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:18px 0}
+.card{background:#131c30;border:1px solid #293653;border-radius:15px;padding:16px;cursor:pointer}.card:active{transform:scale(.98)}.card b{display:block;margin:8px 0}.emoji{font-size:27px}
+.panel{background:#111a2d;border:1px solid #293653;border-radius:16px;padding:17px;margin-top:14px}
+label{display:block;margin:12px 0 6px;color:#c8d2e8}input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #3a4968;background:#0b1221;color:white;font-size:15px}
+textarea{min-height:110px;resize:vertical}button{border:0;border-radius:10px;padding:12px 16px;background:#24a6df;color:#06111d;font-weight:bold;font-size:15px;margin-top:12px;cursor:pointer}.secondary{background:#293653;color:#fff}.result{white-space:pre-wrap;background:#080e1b;border:1px solid #293653;padding:13px;border-radius:10px;margin-top:14px;min-height:45px}
+.hidden{display:none}.notice{font-size:13px;color:#aab5ce;margin-top:12px}footer{text-align:center;color:#8290aa;padding:25px;font-size:13px}
 </style>
 </head>
-
 <body>
-
-<header>
-  <div class="logo">VK <span>Studio AI</span></div>
-  <button onclick="showInfo()">About</button>
-</header>
-
-<div class="container">
-
-<div class="hero">
-  <div class="tag">✨ AI CREATIVE STUDIO</div>
-  <h1>Welcome to VK Studio</h1>
-  <p>Chat, create, imagine & bring your ideas to life.</p>
+<header><div class="logo">VK <span>STUDIO</span></div><div class="muted">AI Creator Tools</div></header>
+<main>
+<section class="welcome"><h1>नमस्ते! VK Studio में आपका स्वागत है 👋</h1><div class="muted">कहानी, YouTube SEO, इमेज और वीडियो प्रॉम्प्ट एक ही जगह बनाइए।</div></section>
+<div class="grid">
+<div class="card" onclick="show('story')"><div class="emoji">📖</div><b>Story Generator</b><small class="muted">कहानी लिखें</small></div>
+<div class="card" onclick="show('seo')"><div class="emoji">▶️</div><b>YouTube SEO</b><small class="muted">Title, Description, Tags</small></div>
+<div class="card" onclick="show('image')"><div class="emoji">🖼️</div><b>Image Prompt</b><small class="muted">AI फोटो प्रॉम्प्ट</small></div>
+<div class="card" onclick="show('video')"><div class="emoji">🎬</div><b>Video Prompt</b><small class="muted">5 या 10 सेकंड</small></div>
+<div class="card" onclick="show('chat')"><div class="emoji">💬</div><b>AI Chat</b><small class="muted">चैट डेमो</small></div>
 </div>
 
-<div class="card">
-  <h2>🤖 AI Chat</h2>
-  <div class="tabs">
-    <button onclick="setMode('chat')">Chat</button>
-    <button onclick="setMode('story')">Story</button>
-    <button onclick="setMode('prompt')">Video Prompt</button>
-  </div>
-
-  <textarea id="chatInput" placeholder="अपना सवाल या आइडिया लिखें..."></textarea>
-  <button onclick="sendMessage()">Send Message ➤</button>
-
-  <div id="chatResult" class="result hidden"></div>
-</div>
-
-<div class="card">
-  <h2>🎬 AI Video Creator</h2>
-  <p>अपने आइडिया से 10 सेकंड तक की वीडियो बनाने का प्रॉम्प्ट तैयार करें।</p>
-
-  <textarea id="videoPrompt"
-  placeholder="बताइए वीडियो में क्या दिखाना है..."></textarea>
-
-  <label>वीडियो अवधि</label>
-  <select id="duration" style="width:100%;padding:12px;border-radius:10px;background:#10131c;color:white">
-    <option>5 Seconds</option>
-    <option>10 Seconds</option>
-  </select>
-
-  <br><br>
-  <button onclick="createVideoPrompt()">✨ Create Video Prompt</button>
-
-  <div id="videoResult" class="result hidden"></div>
-</div>
-
-<div class="card">
-  <h2>🌟 Creative Tools</h2>
-  <div class="tabs">
-    <button onclick="quickText('एक मजेदार कहानी लिखो')">📖 Story</button>
-    <button onclick="quickText('YouTube वीडियो का टाइटल और डिस्क्रिप्शन लिखो')">📺 YouTube</button>
-    <button onclick="quickText('एक शानदार इमेज बनाने का प्रॉम्प्ट लिखो')">🖼️ Image Prompt</button>
-  </div>
-</div>
-
-<div class="card">
-  <h2>💎 VK Studio Premium</h2>
-  <p>आने वाले समय में नए AI टूल, वीडियो फीचर्स और प्रीमियम सुविधाएँ।</p>
-  <span class="tag">AI Chat</span>
-  <span class="tag">Video Creation</span>
-  <span class="tag">Creative Studio</span>
-</div>
-
-</div>
-
-<footer>
-  © 2026 VK Studio AI · Made with ❤️
-</footer>
-
+<section id="story" class="panel hidden"><h2>📖 कहानी जनरेटर</h2><label>कहानी का विषय</label><input id="storyTopic" placeholder="जैसे: गरीब किसान और राजा"><button onclick="makeStory()">कहानी बनाएं</button><div id="storyOut" class="result">आपकी कहानी यहाँ दिखाई देगी।</div></section>
+<section id="seo" class="panel hidden"><h2>▶️ YouTube SEO</h2><label>वीडियो किस बारे में है?</label><input id="seoTopic" placeholder="जैसे: हनुमान जी की भक्ति"><button onclick="makeSeo()">SEO बनाएं</button><div id="seoOut" class="result">Title, Description और Tags यहाँ आएँगे।</div></section>
+<section id="image" class="panel hidden"><h2>🖼️ Image Prompt</h2><label>फोटो का आइडिया</label><input id="imageTopic" placeholder="जैसे: पहाड़ पर बैठे हनुमान जी"><label>स्टाइल</label><select id="imageStyle"><option>Realistic cinematic</option><option>3D animation</option><option>Devotional fantasy art</option><option>Cartoon illustration</option></select><button onclick="makeImage()">प्रॉम्प्ट बनाएं</button><div id="imageOut" class="result"></div></section>
+<section id="video" class="panel hidden"><h2>🎬 Video Prompt</h2><label>वीडियो का आइडिया</label><input id="videoTopic" placeholder="जैसे: हनुमान जी राम जी की मूर्ति बना रहे हैं"><label>अवधि</label><select id="videoDuration"><option>5 seconds</option><option selected>10 seconds</option></select><label>फॉर्मेट</label><select id="videoRatio"><option>9:16 vertical</option><option>16:9 landscape</option><option>1:1 square</option></select><button onclick="makeVideo()">वीडियो प्रॉम्प्ट बनाएं</button><div id="videoOut" class="result"></div></section>
+<section id="chat" class="panel hidden"><h2>💬 AI Chat Demo</h2><label>अपना सवाल लिखें</label><textarea id="chatText" placeholder="कुछ पूछिए..."></textarea><button onclick="chatDemo()">भेजें</button><div id="chatOut" class="result">यह अभी डेमो चैट है। असली AI जवाब के लिए सुरक्षित API/backend जोड़ना होगा।</div></section>
+<p class="notice">ध्यान दें: ये टूल अभी ब्राउज़र में बेसिक टेम्पलेट से टेक्स्ट बनाते हैं। असली AI API, वीडियो जनरेशन और विज्ञापन अभी जुड़े नहीं हैं।</p>
+</main><footer>VK Studio • Made for creators</footer>
 <script>
-let mode="chat";
-
-function setMode(m){
-  mode=m;
-  const box=document.getElementById("chatInput");
-  if(m==="chat") box.placeholder="अपना सवाल लिखें...";
-  if(m==="story") box.placeholder="कहानी का विषय लिखें...";
-  if(m==="prompt") box.placeholder="वीडियो का सीन बताएं...";
-}
-
-function sendMessage(){
-  const text=document.getElementById("chatInput").value.trim();
-  if(!text)return;
-
-  const result=document.getElementById("chatResult");
-  result.classList.remove("hidden");
-
-  if(mode==="prompt"){
-    result.textContent="आपका वीडियो आइडिया:\\n\\n"+text+
-    "\\n\\nCinematic lighting, smooth camera movement, realistic details, high quality.";
-  }
-  else if(mode==="story"){
-    result.textContent="कहानी का आइडिया:\\n\\n"+text+
-    "\\n\\nइस विषय पर एक भावुक और दिलचस्प कहानी तैयार की जा सकती है।";
-  }
-  else{
-    result.textContent="आपका संदेश:\\n"+text+
-    "\\n\\nVK Studio का AI चैट इंटरफेस तैयार है। वास्तविक AI जवाब पाने के लिए AI API जोड़ना बाकी है।";
-  }
-}
-
-function createVideoPrompt(){
-  const text=document.getElementById("videoPrompt").value.trim();
-  const duration=document.getElementById("duration").value;
-  if(!text)return alert("पहले वीडियो का आइडिया लिखिए");
-
-  const result=document.getElementById("videoResult");
-  result.classList.remove("hidden");
-
-  result.textContent=
-  "VIDEO PROMPT\\n\\n"+
-  text+
-  "\\n\\nDuration: "+duration+
-  "\\nStyle: Cinematic, realistic, high detail"+
-  "\\nCamera: Smooth camera movement"+
-  "\\nQuality: High quality"+
-  "\\nAspect Ratio: 16:9"+
-  "\\n\\nयह वीडियो प्रॉम्प्ट तैयार है। वास्तविक वीडियो बनाने के लिए वीडियो जनरेशन API जोड़ना बाकी है।";
-}
-
-function quickText(text){
-  document.getElementById("chatInput").value=text;
-  document.getElementById("chatResult").classList.remove("hidden");
-  document.getElementById("chatResult").textContent=
-    "आपका आइडिया:\\n"+text+
-    "\\n\\nAI फीचर को चालू करने के लिए API कनेक्शन जोड़ना होगा।";
-}
-
-function showInfo(){
-  alert("VK Studio AI\\nAI Chat & Video Creation Studio");
-}
+function show(id){document.querySelectorAll('.panel').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+function val(id){return document.getElementById(id).value.trim()||'आपका विषय';}
+function makeStory(){let t=val('storyTopic');document.getElementById('storyOut').textContent=`एक समय की बात है। ${t} की कहानी एक छोटे से गाँव से शुरू होती है। वहाँ एक नेकदिल व्यक्ति रहता था, जो हमेशा दूसरों की मदद करता था। एक दिन गाँव पर मुश्किल आई। उसने हिम्मत और समझदारी से सबका साथ दिया। उसकी सच्चाई और अच्छे कर्म देखकर सभी का दिल बदल गया।\\n\\nसीख: सच्चाई, मेहनत और दया का फल हमेशा अच्छा होता है।`;}
+function makeSeo(){let t=val('seoTopic');document.getElementById('seoOut').textContent=`Title: ${t} | दिल छू लेने वाला वीडियो\\n\\nDescription:\\nदेखिए ${t} पर यह शानदार वीडियो। वीडियो पसंद आए तो Like, Share और Channel Subscribe करें।\\n\\nTags:\\n${t}, hindi video, viral video, devotional, shorts\\n\\nHashtags:\\n#${t.replace(/\\s+/g,'')} #Hindi #Shorts #Viral`;}
+function makeImage(){let t=val('imageTopic'),s=val('imageStyle');document.getElementById('imageOut').textContent=`${t}, ${s} style, highly detailed, beautiful lighting, rich colors, sharp focus, professional composition, 4K quality.`;}
+function makeVideo(){let t=val('videoTopic'),d=val('videoDuration'),r=val('videoRatio');document.getElementById('videoOut').textContent=`Create a ${d} cinematic video: ${t}. Show smooth natural movement, expressive details, beautiful lighting, realistic environment, high visual quality. Format: ${r}. Keep the main subject consistent throughout.`;}
+function chatDemo(){let q=val('chatText');document.getElementById('chatOut').textContent=`आपका सवाल: ${q}\\n\\nयह VK Studio का चैट डेमो है। असली AI उत्तर के लिए API और सुरक्षित backend जोड़ना बाकी है।`;}
 </script>
-
-</body>
-</html>
+</body></html>
