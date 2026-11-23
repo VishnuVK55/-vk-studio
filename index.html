@@ -1,50 +1,106 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta name="google-site-verification" content="xPz8AKB9ZWpCasAI-jVKwh2vg25jv9ChSbNufbfoh04" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VK Studio AI</title>
+<meta name="theme-color" content="#101827">
+<title>VK Studio - Free Creator Tools</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#090d18;color:#f4f6ff;font-family:Arial,sans-serif}
-header{padding:18px 16px;background:#11182a;border-bottom:1px solid #26324b;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
-.logo{font-size:23px;font-weight:800;color:#65d5ff}.logo span{color:#fff}
-main{max-width:900px;margin:auto;padding:18px}.welcome{padding:22px;border-radius:18px;background:linear-gradient(135deg,#182b50,#17203a);margin-bottom:18px}
-h1{font-size:25px;margin:0 0 8px}.muted{color:#aab5ce;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:18px 0}
-.card{background:#131c30;border:1px solid #293653;border-radius:15px;padding:16px;cursor:pointer}.card:active{transform:scale(.98)}.card b{display:block;margin:8px 0}.emoji{font-size:27px}
-.panel{background:#111a2d;border:1px solid #293653;border-radius:16px;padding:17px;margin-top:14px}
-label{display:block;margin:12px 0 6px;color:#c8d2e8}input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #3a4968;background:#0b1221;color:white;font-size:15px}
-textarea{min-height:110px;resize:vertical}button{border:0;border-radius:10px;padding:12px 16px;background:#24a6df;color:#06111d;font-weight:bold;font-size:15px;margin-top:12px;cursor:pointer}.secondary{background:#293653;color:#fff}.result{white-space:pre-wrap;background:#080e1b;border:1px solid #293653;padding:13px;border-radius:10px;margin-top:14px;min-height:45px}
-.hidden{display:none}.notice{font-size:13px;color:#aab5ce;margin-top:12px}footer{text-align:center;color:#8290aa;padding:25px;font-size:13px}
+:root{--bg:#0b1220;--panel:#121e30;--panel2:#18263b;--text:#f4f7fb;--muted:#aab7ca;--accent:#ffb703;--line:#2a3a52;--green:#35c98a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#09111e,#101c2d 55%,#0b1220);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:22px 16px 18px;text-align:center;background:#101a2a;border-bottom:1px solid var(--line)}
+.logo{font-size:30px;font-weight:900;letter-spacing:1px;color:var(--accent)}header p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.wrap{max-width:1050px;margin:auto;padding:18px 14px 40px}.notice{background:#1c2b40;border:1px solid #31445e;border-radius:14px;padding:12px 14px;color:#dbe7f5;font-size:13px;margin-bottom:16px}
+.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:16px}
+.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:13px 8px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer}
+.tab.active{background:var(--accent);color:#18202c;border-color:var(--accent)}
+.panel{display:none;background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:16px;box-shadow:0 12px 30px #0003}.panel.active{display:block}
+h2{font-size:20px;margin:0 0 7px} .sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+label{display:block;font-size:13px;color:#dce6f3;font-weight:650;margin:13px 0 6px}
+input,textarea,select{width:100%;border:1px solid #354760;background:#0c1727;color:white;border-radius:10px;padding:12px;font:inherit;outline:none}
+textarea{min-height:95px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+button.primary,button.secondary{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}
+.primary{background:var(--accent);color:#1c2430}.secondary{background:#263850;color:white;border:1px solid #3b506b!important}
+.output{margin-top:16px;background:#0a1422;border:1px solid #2b3d55;border-radius:12px;padding:14px;min-height:75px;white-space:pre-wrap;line-height:1.55;color:#edf3fa;overflow-wrap:anywhere}
+.output:empty:before{content:"आपका तैयार कंटेंट यहाँ दिखाई देगा…";color:#788aa2}
+.small{font-size:12px;color:var(--muted);margin-top:12px}
+footer{text-align:center;color:#8797ad;font-size:12px;padding:20px}
+@media(min-width:650px){.tabs{grid-template-columns:repeat(4,1fr)}.panel{padding:24px}.wrap{padding-top:24px}}
 </style>
 </head>
 <body>
-<header><div class="logo">VK <span>STUDIO</span></div><div class="muted">AI Creator Tools</div></header>
-<main>
-<section class="welcome"><h1>नमस्ते! VK Studio में आपका स्वागत है 👋</h1><div class="muted">कहानी, YouTube SEO, इमेज और वीडियो प्रॉम्प्ट एक ही जगह बनाइए।</div></section>
-<div class="grid">
-<div class="card" onclick="show('story')"><div class="emoji">📖</div><b>Story Generator</b><small class="muted">कहानी लिखें</small></div>
-<div class="card" onclick="show('seo')"><div class="emoji">▶️</div><b>YouTube SEO</b><small class="muted">Title, Description, Tags</small></div>
-<div class="card" onclick="show('image')"><div class="emoji">🖼️</div><b>Image Prompt</b><small class="muted">AI फोटो प्रॉम्प्ट</small></div>
-<div class="card" onclick="show('video')"><div class="emoji">🎬</div><b>Video Prompt</b><small class="muted">5 या 10 सेकंड</small></div>
-<div class="card" onclick="show('chat')"><div class="emoji">💬</div><b>AI Chat</b><small class="muted">चैट डेमो</small></div>
-</div>
+<header><div class="logo">⚡ VK STUDIO</div><p>Creators के लिए Free Hindi Tools</p></header>
+<main class="wrap">
+<div class="notice">✨ स्वागत है! कहानी, YouTube SEO, Image Prompt और 10 सेकंड Video Prompt तैयार करें। यह बेसिक वर्जन बिना API key के चलता है।</div>
+<nav class="tabs" aria-label="Tools">
+<button class="tab active" data-tab="story">📖 कहानी</button>
+<button class="tab" data-tab="seo">▶️ YouTube SEO</button>
+<button class="tab" data-tab="image">🖼️ Image Prompt</button>
+<button class="tab" data-tab="video">🎬 Video Prompt</button>
+</nav>
 
-<section id="story" class="panel hidden"><h2>📖 कहानी जनरेटर</h2><label>कहानी का विषय</label><input id="storyTopic" placeholder="जैसे: गरीब किसान और राजा"><button onclick="makeStory()">कहानी बनाएं</button><div id="storyOut" class="result">आपकी कहानी यहाँ दिखाई देगी।</div></section>
-<section id="seo" class="panel hidden"><h2>▶️ YouTube SEO</h2><label>वीडियो किस बारे में है?</label><input id="seoTopic" placeholder="जैसे: हनुमान जी की भक्ति"><button onclick="makeSeo()">SEO बनाएं</button><div id="seoOut" class="result">Title, Description और Tags यहाँ आएँगे।</div></section>
-<section id="image" class="panel hidden"><h2>🖼️ Image Prompt</h2><label>फोटो का आइडिया</label><input id="imageTopic" placeholder="जैसे: पहाड़ पर बैठे हनुमान जी"><label>स्टाइल</label><select id="imageStyle"><option>Realistic cinematic</option><option>3D animation</option><option>Devotional fantasy art</option><option>Cartoon illustration</option></select><button onclick="makeImage()">प्रॉम्प्ट बनाएं</button><div id="imageOut" class="result"></div></section>
-<section id="video" class="panel hidden"><h2>🎬 Video Prompt</h2><label>वीडियो का आइडिया</label><input id="videoTopic" placeholder="जैसे: हनुमान जी राम जी की मूर्ति बना रहे हैं"><label>अवधि</label><select id="videoDuration"><option>5 seconds</option><option selected>10 seconds</option></select><label>फॉर्मेट</label><select id="videoRatio"><option>9:16 vertical</option><option>16:9 landscape</option><option>1:1 square</option></select><button onclick="makeVideo()">वीडियो प्रॉम्प्ट बनाएं</button><div id="videoOut" class="result"></div></section>
-<section id="chat" class="panel hidden"><h2>💬 AI Chat Demo</h2><label>अपना सवाल लिखें</label><textarea id="chatText" placeholder="कुछ पूछिए..."></textarea><button onclick="chatDemo()">भेजें</button><div id="chatOut" class="result">यह अभी डेमो चैट है। असली AI जवाब के लिए सुरक्षित API/backend जोड़ना होगा।</div></section>
-<p class="notice">ध्यान दें: ये टूल अभी ब्राउज़र में बेसिक टेम्पलेट से टेक्स्ट बनाते हैं। असली AI API, वीडियो जनरेशन और विज्ञापन अभी जुड़े नहीं हैं।</p>
-</main><footer>VK Studio • Made for creators</footer>
+<section class="panel active" id="story">
+<h2>📖 कहानी जनरेटर</h2><p class="sub">अपना विषय लिखें और छोटी भावुक कहानी का ड्राफ्ट पाएँ।</p>
+<label>कहानी का विषय</label><input id="storyTopic" placeholder="जैसे: हनुमान जी राम जी की मूर्ति बना रहे हैं">
+<label>कहानी का अंदाज़</label><select id="storyMood"><option value="भावुक और प्रेरणादायक">भावुक और प्रेरणादायक</option><option value="रोमांचक">रोमांचक</option><option value="भक्ति से भरी">भक्ति से भरी</option><option value="मजेदार">मजेदार</option></select>
+<div class="actions"><button class="primary" onclick="makeStory()">कहानी बनाएं</button><button class="secondary" onclick="clearOutput('storyOut')">साफ करें</button></div><div class="output" id="storyOut"></div><button class="secondary" onclick="copyOut('storyOut')">कॉपी करें</button>
+</section>
+
+<section class="panel" id="seo">
+<h2>▶️ YouTube SEO टूल</h2><p class="sub">वीडियो के लिए टाइटल, डिस्क्रिप्शन और टैग का सुझाव पाएँ।</p>
+<label>वीडियो किस बारे में है?</label><input id="seoTopic" placeholder="जैसे: हनुमान जी राम जी की मूर्ति बना रहे हैं">
+<label>वीडियो की भाषा</label><select id="seoLang"><option>Hindi</option><option>Hinglish</option><option>English</option></select>
+<div class="actions"><button class="primary" onclick="makeSEO()">SEO बनाएं</button><button class="secondary" onclick="clearOutput('seoOut')">साफ करें</button></div><div class="output" id="seoOut"></div><button class="secondary" onclick="copyOut('seoOut')">कॉपी करें</button>
+</section>
+
+<section class="panel" id="image">
+<h2>🖼️ AI Image Prompt</h2><p class="sub">किसी भी AI image generator में इस्तेमाल करने के लिए prompt तैयार करें।</p>
+<label>इमेज में क्या दिखाना है?</label><textarea id="imageTopic" placeholder="जैसे: पहाड़ पर बैठे हनुमान जी, सामने राम जी की सुंदर मूर्ति"></textarea>
+<label>इमेज स्टाइल</label><select id="imageStyle"><option value="cinematic ultra realistic 3D">Cinematic 3D Realistic</option><option value="devotional Indian mythological digital art">Devotional Digital Art</option><option value="high detail fantasy illustration">Fantasy Illustration</option><option value="photorealistic">Photorealistic</option></select>
+<div class="actions"><button class="primary" onclick="makeImage()">Image Prompt बनाएं</button><button class="secondary" onclick="clearOutput('imageOut')">साफ करें</button></div><div class="output" id="imageOut"></div><button class="secondary" onclick="copyOut('imageOut')">कॉपी करें</button>
+</section>
+
+<section class="panel" id="video">
+<h2>🎬 10 सेकंड Video Prompt</h2><p class="sub">AI video generator के लिए सीन-बाय-सीन prompt बनाएँ।</p>
+<label>वीडियो का सीन</label><textarea id="videoTopic" placeholder="जैसे: हनुमान जी नदी किनारे राम जी की मूर्ति बना रहे हैं"></textarea>
+<label>वीडियो का मूड</label><select id="videoMood"><option value="emotional devotional atmosphere">भावुक भक्ति</option><option value="epic and majestic atmosphere">भव्य और शानदार</option><option value="peaceful and divine atmosphere">शांत और दिव्य</option></select>
+<div class="actions"><button class="primary" onclick="makeVideo()">Video Prompt बनाएं</button><button class="secondary" onclick="clearOutput('videoOut')">साफ करें</button></div><div class="output" id="videoOut"></div><button class="secondary" onclick="copyOut('videoOut')">कॉपी करें</button>
+</section>
+<footer>VK Studio • Free Creator Tools • Made for mobile creators</footer>
+</main>
 <script>
-function show(id){document.querySelectorAll('.panel').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.getElementById(id).scrollIntoView({behavior:'smooth'});}
-function val(id){return document.getElementById(id).value.trim()||'आपका विषय';}
-function makeStory(){let t=val('storyTopic');document.getElementById('storyOut').textContent=`एक समय की बात है। ${t} की कहानी एक छोटे से गाँव से शुरू होती है। वहाँ एक नेकदिल व्यक्ति रहता था, जो हमेशा दूसरों की मदद करता था। एक दिन गाँव पर मुश्किल आई। उसने हिम्मत और समझदारी से सबका साथ दिया। उसकी सच्चाई और अच्छे कर्म देखकर सभी का दिल बदल गया।\\n\\nसीख: सच्चाई, मेहनत और दया का फल हमेशा अच्छा होता है।`;}
-function makeSeo(){let t=val('seoTopic');document.getElementById('seoOut').textContent=`Title: ${t} | दिल छू लेने वाला वीडियो\\n\\nDescription:\\nदेखिए ${t} पर यह शानदार वीडियो। वीडियो पसंद आए तो Like, Share और Channel Subscribe करें।\\n\\nTags:\\n${t}, hindi video, viral video, devotional, shorts\\n\\nHashtags:\\n#${t.replace(/\\s+/g,'')} #Hindi #Shorts #Viral`;}
-function makeImage(){let t=val('imageTopic'),s=val('imageStyle');document.getElementById('imageOut').textContent=`${t}, ${s} style, highly detailed, beautiful lighting, rich colors, sharp focus, professional composition, 4K quality.`;}
-function makeVideo(){let t=val('videoTopic'),d=val('videoDuration'),r=val('videoRatio');document.getElementById('videoOut').textContent=`Create a ${d} cinematic video: ${t}. Show smooth natural movement, expressive details, beautiful lighting, realistic environment, high visual quality. Format: ${r}. Keep the main subject consistent throughout.`;}
-function chatDemo(){let q=val('chatText');document.getElementById('chatOut').textContent=`आपका सवाल: ${q}\\n\\nयह VK Studio का चैट डेमो है। असली AI उत्तर के लिए API और सुरक्षित backend जोड़ना बाकी है।`;}
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');
+}));
+function val(id){return document.getElementById(id).value.trim()}
+function put(id,text){document.getElementById(id).textContent=text}
+function clearOutput(id){put(id,'')}
+function copyOut(id){
+ const text=document.getElementById(id).textContent;
+ if(!text){alert('पहले कंटेंट तैयार करें।');return}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>alert('कॉपी हो गया!')).catch(()=>fallbackCopy(text))}
+ else fallbackCopy(text)
+}
+function fallbackCopy(text){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();alert('कॉपी हो गया!')}
+function makeStory(){
+ const t=val('storyTopic'),m=val('storyMood');if(!t){alert('कहानी का विषय लिखें।');return}
+ put('storyOut',`शीर्षक: ${t}\n\nएक दिन की बात है, ${t}। वातावरण में गहरी शांति थी। तभी एक ऐसा पल आया जिसने सबका दिल छू लिया।\n\n${t} के बीच प्रेम, विश्वास और समर्पण की भावना साफ दिखाई दे रही थी। हर छोटा कदम एक बड़ी सीख दे रहा था कि सच्ची श्रद्धा और नेक इरादे कभी व्यर्थ नहीं जाते।\n\nअंत में सभी ने महसूस किया कि ${m} का असली अर्थ दूसरों के दिल में प्रेम और उम्मीद जगाना है।\n\nसीख: सच्चे मन से किया गया अच्छा काम हमेशा याद रहता है।`);
+}
+function makeSEO(){
+ const t=val('seoTopic'),l=val('seoLang');if(!t){alert('वीडियो का विषय लिखें।');return}
+ put('seoOut',`TITLE IDEAS:\n1. ${t} 🙏 | दिल छू लेने वाला अद्भुत दृश्य\n2. ${t} ❤️ | जरूर देखें यह भक्तिमय वीडियो\n3. ${t} का अद्भुत नजारा 🚩 #shorts\n\nDESCRIPTION:\n${t}\nइस वीडियो को पूरा देखें और अच्छा लगे तो Like, Share और Subscribe जरूर करें। कमेंट में जय श्री राम लिखें।\n\nTAGS:\n${t}, bhakti, devotional video, hindu mythology, ram bhakt, hanuman ji, jai shree ram, shorts, viral shorts, ${l}\n\nHASHTAGS:\n#shorts #Bhakti #HanumanJi #JaiShreeRam #Devotional`);
+}
+function makeImage(){
+ const t=val('imageTopic'),s=val('imageStyle');if(!t){alert('इमेज का विषय लिखें।');return}
+ put('imageOut',`${t}, ${s}, intricate details, expressive composition, beautiful divine lighting, rich natural colors, cinematic depth of field, highly detailed background, 4K quality, vertical 9:16 composition, no text, no watermark.`);
+}
+function makeVideo(){
+ const t=val('videoTopic'),m=val('videoMood');if(!t){alert('वीडियो का सीन लिखें।');return}
+ put('videoOut',`Create a 10-second vertical 9:16 cinematic devotional video.\n\nSCENE: ${t}\nMOOD: ${m}\n\n0-3 seconds: Start with an emotionally powerful close-up. Show gentle expressions, moist eyes and soft divine light to immediately catch the viewer's attention.\n3-6 seconds: Slowly reveal the full scene with a smooth cinematic camera movement. Add subtle wind, floating dust particles and natural movement.\n6-10 seconds: End with a beautiful wide shot, warm golden light and a peaceful devotional feeling.\n\nStyle: ultra-detailed cinematic realism, smooth motion, consistent characters, natural anatomy, dramatic but respectful lighting, 4K, no subtitles, no text, no watermark.`);
+}
 </script>
-</body></html>
+</body>
+                                                     </html>
