@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vishnuvk55.github.io/-vk-studio/sitemap.xml
